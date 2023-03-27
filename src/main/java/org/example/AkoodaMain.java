@@ -15,8 +15,8 @@ public class AkoodaMain {
     public static void main(String[] args) throws IOException {
         String messagesPath;
         String rulesPath;
-        if (args.length < 1) messagesPath = args[0]; else throw new RuntimeException("Messages path is not specified");
-        if (args.length < 2) rulesPath    = args[1]; else throw new RuntimeException("Rules path is not specified");
+        if (args.length > 0) messagesPath = args[0]; else throw new RuntimeException("Messages path is not specified");
+        if (args.length > 1) rulesPath    = args[1]; else throw new RuntimeException("Rules path is not specified");
         Stream<FileMessage> messageStream = new MessageReader().messageStream(new File(messagesPath));
         List<MessageRule> ruleList = Files.lines(Paths.get(rulesPath)).map(MessageRule::from)
             .filter(Optional::isPresent).map(Optional::get).toList();
